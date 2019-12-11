@@ -5,6 +5,8 @@
  */
 package garageproject;
 
+import garageproject.frontend.GUIPelanggan;
+
 /**
  *
  * @author irfan
@@ -15,7 +17,8 @@ public class GarageProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        GUIPelanggan pelanggan = new GUIPelanggan();
+        pelanggan.setVisible(true);
     }
     
 }
