@@ -86,7 +86,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     public void tampilkanDataPelayanan() {
         String[] kolom = {"ID", "Tanggal", "ID Mekanik", "ID Kendaraan", "Biaya"};
         ArrayList<Pelayanan> list = new Pelayanan().getAll();
-        Object rowData[] = new Object[4];
+        Object rowData[] = new Object[5];
 
         pelayananTable.setModel(new DefaultTableModel(new Object[][]{}, kolom));
 
@@ -169,7 +169,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         idPelayananField = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        tanggal = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -540,7 +540,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
 
         jLabel19.setText("Tanggal");
 
-        jLabel20.setText("Sekarang");
+        tanggal.setText("Sekarang");
 
         jLabel21.setText("ID Mekanik");
 
@@ -561,6 +561,11 @@ public class GarageProjectGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        pelayananTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pelayananTableMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(pelayananTable);
 
         jButton8.setText("Simpan");
@@ -619,7 +624,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(idPelayananField, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                                    .addComponent(jLabel20)
+                                    .addComponent(tanggal)
                                     .addComponent(hargaField))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton8)
@@ -653,7 +658,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jLabel20))
+                    .addComponent(tanggal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
@@ -841,7 +846,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
         );
 
         pelayanan.save();
-
+        tampilkanDataPelayanan();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -851,7 +856,19 @@ public class GarageProjectGUI extends javax.swing.JFrame {
         );
 
         pelayanan.delete();
+        tampilkanDataPelayanan();
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void pelayananTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelayananTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) pelayananTable.getModel();
+        int row = pelayananTable.getSelectedRow();
+
+        idPelayananField.setText(model.getValueAt(row, 0).toString());
+        tanggal.setText(model.getValueAt(row, 1).toString());
+        mekanikField.setText(model.getValueAt(row, 2).toString());
+        kendaraanField.setText(model.getValueAt(row, 3).toString());
+        hargaField.setText(model.getValueAt(row, 4).toString());
+    }//GEN-LAST:event_pelayananTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -920,7 +937,6 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -956,6 +972,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     private javax.swing.JTextField noHPPelangganField;
     private javax.swing.JTable pelangganTable;
     private javax.swing.JTable pelayananTable;
+    private javax.swing.JLabel tanggal;
     // End of variables declaration//GEN-END:variables
 
 }

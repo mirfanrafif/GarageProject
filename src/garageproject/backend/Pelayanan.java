@@ -124,15 +124,13 @@ public class Pelayanan implements Transaction{
     public void save() {
         if (this.id == 0) {
             String SQL = "INSERT INTO Pelayanan(tanggal, biaya, "
-                    + "id_kendaraan, id_mekanik) VALUES ('" 
-                    + this.tanggal + "', '" 
+                    + "id_kendaraan, id_mekanik) VALUES (NOW(), '" 
                     + this.biaya + "', '" 
                     + this.kendaraan.getId() + "', '" 
                     + this.mekanik.getId()+ "')";
             this.id = DBHelper.insertQueryGetId(SQL);
         } else {
-            String SQL = "UPDATE Kendaraan SET tanggal = '" + this.tanggal 
-                    + "', biaya = '" + this.biaya 
+            String SQL = "UPDATE Pelayanan SET biaya = '" + this.biaya 
                     + "', id_kendaraan = '" + this.kendaraan.getId()
                     + "', id_mekanik = '" + this.mekanik.getId()
                     + "' WHERE id_pelayanan = " + this.id + ";";
@@ -141,7 +139,7 @@ public class Pelayanan implements Transaction{
     }
     
     public void delete() {
-        String SQL = "DELETE FROM Pelayanan WHERE pelayanan = " + this.id;
+        String SQL = "DELETE FROM Pelayanan WHERE id_pelayanan = " + this.id;
         DBHelper.executeQuery(SQL);
     }
 }
