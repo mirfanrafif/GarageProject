@@ -79,7 +79,7 @@ public class Kendaraan {
                 kendaraan.setId(Integer.valueOf(rs.getString("id_kendaraan")));
                 kendaraan.setNama(rs.getString("nama_kendaraan"));
                 kendaraan.setJenis(rs.getString("jenis_kendaraan"));
-                kendaraan.setMerk(rs.getString("nama_kendaraan"));
+                kendaraan.setMerk(rs.getString("merk_kendaraan"));
                 kendaraan.setPelanggan(
                         new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")))
                 );

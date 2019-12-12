@@ -23,7 +23,7 @@ public class DBHelper {
                 String url = "jdbc:mysql://localhost:3306/bengkeldb?serverTimezone=UTC&autoReconnect=true&useSSL=false";
                 String user = "admin";
                 String password = "irfanRAFI";
-                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
                 connection = DriverManager.getConnection(url, user, password);
             } catch (Exception e) {
                 System.out.println("Error Koneksi : " + e);

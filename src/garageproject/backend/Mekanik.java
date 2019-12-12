@@ -18,8 +18,7 @@ public class Mekanik {
     private String alamat;
     private String noHP;
 
-    public Mekanik(int id, String nama, String alamat, String noHP) {
-        this.id = id;
+    public Mekanik(String nama, String alamat, String noHP) {
         this.nama = nama;
         this.alamat = alamat;
         this.noHP = noHP;

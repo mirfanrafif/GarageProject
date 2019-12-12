@@ -26,19 +26,6 @@ public class test {
         pelanggan1.setNama("Eko");
         pelanggan1.save();
         
-        ArrayList<Pelanggan> listPelanggan = pelanggan1.getAll();
-        
-        Iterator<Pelanggan> i = listPelanggan.iterator();
-        
-        while (i.hasNext()) {
-            Pelanggan p = i.next();
-            System.out.println(p.getNama());
-            System.out.println(p.getAlamat());
-            System.out.println(p.getNo_hp());
-            System.out.println("");
-            
-        }
-        
         Kendaraan k1 = new Kendaraan("Jupiter MX", "Motor", "Yamaha", pelanggan1);
         Kendaraan k2 = new Kendaraan("CBR 150", "Motor", "Honda", pelanggan2);
         Kendaraan k3 = new Kendaraan("Revo", "Motor", "Honda", pelanggan1);
@@ -50,7 +37,21 @@ public class test {
         k1.setNama("Jupiter Z");
         k1.save();
         
-        System.out.println(new Kendaraan().getById(1).getNama());
+        Mekanik mekanik1 = new Mekanik("Irfan", "Malang", "08128301238");
+        Mekanik mekanik2 = new Mekanik("Rafif", "Malang", "08128301238");
+        Mekanik mekanik3 = new Mekanik("Moch.", "Malang", "08128301238");
+        
+        mekanik1.save();
+        mekanik2.save();
+        mekanik3.save();
+        
+        Pelayanan pelayanan1 = new Pelayanan("2019/12/10", 300000, k3, mekanik3);
+        Pelayanan pelayanan2 = new Pelayanan("2019/12/11", 500000, k2, mekanik3);
+        Pelayanan pelayanan3 = new Pelayanan("2019/12/12", 200000, k3, mekanik1);
+        
+        pelayanan1.save();
+        pelayanan2.save();
+        pelayanan3.save();  
         
     }
 }
