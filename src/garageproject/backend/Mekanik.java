@@ -103,7 +103,7 @@ public class Mekanik implements Transaction{
                     + this.noHP + "')";
             this.id = DBHelper.insertQueryGetId(SQL);
         } else {
-            String SQL = "UPDATE Pelanggan SET nama_mekanik = '" + this.nama 
+            String SQL = "UPDATE Mekanik SET nama_mekanik = '" + this.nama 
                     + "', alamat = '" + this.alamat 
                     + "', no_hp = '" + this.noHP
                     + "' WHERE id_mekanik = " + this.id + ";";

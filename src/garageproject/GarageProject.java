@@ -5,7 +5,6 @@
  */
 package garageproject;
 
-import garageproject.frontend.GUIPelanggan;
 import garageproject.frontend.GarageProjectGUI;
 
 /**

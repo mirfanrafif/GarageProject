@@ -5,8 +5,13 @@
  */
 package garageproject.frontend;
 
+import garageproject.backend.Kendaraan;
+import garageproject.backend.Mekanik;
 import garageproject.backend.Pelanggan;
+import garageproject.backend.Pelayanan;
 import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,27 +26,82 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     public GarageProjectGUI() {
         initComponents();
         tampilkanDataPelanggan();
-        idPelangganField.setText("0");
+        tampilkanDataKendaraan();
+        tampilkanDataMekanik();
+        tampilkanDataPelayanan();
     }
-    
-    public void tampilkanDataPelanggan(){
+
+    public void tampilkanDataPelanggan() {
         String[] kolom = {"ID", "Nama Pelanggan", "Alamat", "No HP"};
         ArrayList<Pelanggan> list = new Pelanggan().getAll();
         Object rowData[] = new Object[5];
- 
+
         pelangganTable.setModel(new DefaultTableModel(new Object[][]{}, kolom));
- 
+
         for (Pelanggan pelanggan : list) {
             rowData[0] = String.valueOf(pelanggan.getId());
             rowData[1] = pelanggan.getNama();
             rowData[2] = pelanggan.getAlamat();
             rowData[3] = pelanggan.getNo_hp();
-            
+
             ((DefaultTableModel) pelangganTable.getModel()).addRow(rowData);
         }
     }
-    
-    public void kosongkanForm(){
+
+    private void tampilkanDataKendaraan() {
+        String[] kolom = {"ID", "Nama", "Jenis", "Merk", "ID Pelanggan"};
+        ArrayList<Kendaraan> list = new Kendaraan().getAll();
+        Object rowData[] = new Object[5];
+
+        kendaraanTable.setModel(new DefaultTableModel(new Object[][]{}, kolom));
+
+        for (Kendaraan kendaraan : list) {
+            rowData[0] = String.valueOf(kendaraan.getId());
+            rowData[1] = kendaraan.getNama();
+            rowData[2] = kendaraan.getJenis();
+            rowData[3] = kendaraan.getMerk();
+            rowData[4] = kendaraan.getPelanggan().getId();
+
+            ((DefaultTableModel) kendaraanTable.getModel()).addRow(rowData);
+        }
+    }
+
+    public void tampilkanDataMekanik() {
+        String[] kolom = {"ID", "Nama Pelanggan", "Alamat", "No HP"};
+        ArrayList<Mekanik> list = new Mekanik().getAll();
+        Object rowData[] = new Object[4];
+
+        mekanikTable.setModel(new DefaultTableModel(new Object[][]{}, kolom));
+
+        for (Mekanik mekanik : list) {
+            rowData[0] = String.valueOf(mekanik.getId());
+            rowData[1] = mekanik.getNama();
+            rowData[2] = mekanik.getAlamat();
+            rowData[3] = mekanik.getNoHP();
+
+            ((DefaultTableModel) mekanikTable.getModel()).addRow(rowData);
+        }
+    }
+
+    public void tampilkanDataPelayanan() {
+        String[] kolom = {"ID", "Tanggal", "ID Mekanik", "ID Kendaraan", "Biaya"};
+        ArrayList<Pelayanan> list = new Pelayanan().getAll();
+        Object rowData[] = new Object[4];
+
+        pelayananTable.setModel(new DefaultTableModel(new Object[][]{}, kolom));
+
+        for (Pelayanan pelayanan : list) {
+            rowData[0] = String.valueOf(pelayanan.getId());
+            rowData[1] = pelayanan.getTanggal();
+            rowData[2] = pelayanan.getMekanik().getId();
+            rowData[3] = pelayanan.getKendaraan().getId();
+            rowData[4] = pelayanan.getBiaya();
+
+            ((DefaultTableModel) pelayananTable.getModel()).addRow(rowData);
+        }
+    }
+
+    public void kosongkanForm() {
         idPelangganField.setText("");
         namaPelangganField.setText("");
         alamatPelangganField.setText("");
@@ -74,19 +134,56 @@ public class GarageProjectGUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        kendaraanTable = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        idKendaraanFIeld = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        namaKendaraanField = new javax.swing.JTextField();
+        merkKendaraanField = new javax.swing.JTextField();
+        idPemilikField = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        namaPemilikText = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jenisCombo = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        idMekanikField1 = new javax.swing.JTextField();
+        namaMekanikField1 = new javax.swing.JTextField();
+        alamatMekanikField1 = new javax.swing.JTextField();
+        noHPMekanikField1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        mekanikTable = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        idPelayananField = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        hargaField = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        pelayananTable = new javax.swing.JTable();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        mekanikField = new javax.swing.JTextField();
+        kendaraanField = new javax.swing.JTextField();
+        namaMekanikLabel = new javax.swing.JLabel();
+        namaKendaraanLabel = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +198,7 @@ public class GarageProjectGUI extends javax.swing.JFrame {
         jLabel5.setText("No. HP");
 
         idPelangganField.setEditable(false);
+        idPelangganField.setText("0");
 
         pelangganTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,8 +258,10 @@ public class GarageProjectGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(156, 156, 156)
                         .addComponent(jLabel1)
-                        .addGap(0, 173, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 269, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,68 +288,104 @@ public class GarageProjectGUI extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(noHPPelangganField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Pelanggan", jPanel1);
 
         jLabel6.setText("Kendaraan");
 
-        jLabel7.setText("Nama");
+        jButton3.setText("Simpan");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jLabel8.setText("Jenis");
+        kendaraanTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        kendaraanTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kendaraanTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(kendaraanTable);
 
-        jLabel9.setText("Merk");
+        jLabel11.setText("ID");
 
-        jLabel10.setText("Pemilik");
+        idKendaraanFIeld.setEditable(false);
+        idKendaraanFIeld.setText("0");
 
-        jTextField1.setText("jTextField1");
+        jLabel12.setText("Nama");
 
-        jTextField2.setText("jTextField2");
+        jLabel13.setText("Jenis");
 
-        jTextField3.setText("jTextField3");
+        jLabel14.setText("Merk");
 
-        jTextField4.setText("jTextField4");
+        jLabel15.setText("Pemilik");
 
-        jButton3.setText("Tambah");
-
-        jButton4.setText("Ubah");
+        jButton4.setText("Hapus");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Hapus");
+        namaPemilikText.setText("Nama Pemilik");
+
+        jButton5.setText("Cari Pemilik");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jenisCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Motor", "Mobil" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(157, 157, 157)
+                                .addComponent(jLabel6))
+                            .addComponent(jLabel12)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel13))
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(merkKendaraanField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idKendaraanFIeld, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(namaKendaraanField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(idPemilikField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(namaPemilikText, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                                    .addComponent(jenisCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
@@ -260,50 +396,285 @@ public class GarageProjectGUI extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jLabel11)
+                    .addComponent(idKendaraanFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(namaKendaraanField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(jLabel13)
+                    .addComponent(jenisCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(366, Short.MAX_VALUE))
+                    .addComponent(jLabel14)
+                    .addComponent(merkKendaraanField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(idPemilikField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(namaPemilikText)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Kendaraan", jPanel2);
+
+        jLabel7.setText("Mekanik");
+
+        jLabel8.setText("ID");
+
+        jLabel9.setText("Nama");
+
+        jLabel10.setText("Alamat");
+
+        jLabel16.setText("No. HP");
+
+        idMekanikField1.setEditable(false);
+        idMekanikField1.setText("0");
+
+        mekanikTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        mekanikTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mekanikTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(mekanikTable);
+
+        jButton6.setText("Simpan");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Hapus");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel16))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(idMekanikField1)
+                            .addComponent(namaMekanikField1)
+                            .addComponent(alamatMekanikField1)
+                            .addComponent(noHPMekanikField1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel7)
+                        .addGap(0, 281, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(idMekanikField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(namaMekanikField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(alamatMekanikField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(noHPMekanikField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Mekanik", jPanel3);
+
+        jLabel17.setText("Pelayanan");
+
+        jLabel18.setText("ID");
+
+        idPelayananField.setText("0");
+
+        jLabel19.setText("Tanggal");
+
+        jLabel20.setText("Sekarang");
+
+        jLabel21.setText("ID Mekanik");
+
+        jLabel22.setText("ID Kendaraan");
+
+        jLabel23.setText("Harga");
+
+        hargaField.setText("0");
+
+        pelayananTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(pelayananTable);
+
+        jButton8.setText("Simpan");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setText("Hapus");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        namaMekanikLabel.setText("Nama Mekanik");
+
+        namaKendaraanLabel.setText("Nama Kendaraan");
+
+        jButton10.setText("Cari Mekanik");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setText("Cari Kendaraan");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(184, 184, 184)
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(idPelayananField, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                                    .addComponent(jLabel20)
+                                    .addComponent(hargaField))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton9))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(mekanikField)
+                                    .addComponent(kendaraanField, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(namaKendaraanLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton11))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(namaMekanikLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton10)))))))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(idPelayananField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(mekanikField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(namaMekanikLabel)
+                    .addComponent(jButton10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(kendaraanField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(namaKendaraanLabel)
+                    .addComponent(jButton11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(hargaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9)
+                    .addComponent(jButton8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pelayanan", jPanel4);
@@ -316,13 +687,22 @@ public class GarageProjectGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Pelanggan pelanggan = new Pelanggan();
+        pelanggan.getById(
+                Integer.valueOf(idPelangganField.getText())
+        );
+
+        pelanggan.delete();
+        tampilkanDataPelanggan();
+        kosongkanForm();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Pelanggan pelanggan = new Pelanggan();
@@ -338,28 +718,140 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     private void pelangganTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pelangganTableMouseClicked
         DefaultTableModel model = (DefaultTableModel) pelangganTable.getModel();
         int row = pelangganTable.getSelectedRow();
- 
+
         idPelangganField.setText(model.getValueAt(row, 0).toString());
         namaPelangganField.setText(model.getValueAt(row, 1).toString());
         alamatPelangganField.setText(model.getValueAt(row, 2).toString());
         noHPPelangganField.setText(model.getValueAt(row, 3).toString());
-
     }//GEN-LAST:event_pelangganTableMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Kendaraan kendaraan = new Kendaraan();
+        kendaraan.setId(Integer.valueOf(idKendaraanFIeld.getText()));
+        kendaraan.setJenis(jenisCombo.getSelectedItem().toString());
+        kendaraan.setNama(merkKendaraanField.getText());
+        kendaraan.setMerk(merkKendaraanField.getText());
+
         Pelanggan pelanggan = new Pelanggan();
         pelanggan.getById(
-                Integer.valueOf(idPelangganField.getText())
+                Integer.valueOf(idPemilikField.getText())
         );
-        
-        pelanggan.delete();
-        tampilkanDataPelanggan();
+
+        kendaraan.setPelanggan(pelanggan);
+        kendaraan.save();
+        tampilkanDataKendaraan();
         kosongkanForm();
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        Kendaraan kendaraan = new Kendaraan();
+        kendaraan.getById(Integer.valueOf(idKendaraanFIeld.getText()));
+        kendaraan.delete();
+        kosongkanForm();
+        tampilkanDataKendaraan();
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Pelanggan pelanggan = new Pelanggan();
+        pelanggan.getById(Integer.valueOf(idPemilikField.getText()));
+        namaPemilikText.setText(
+                pelanggan.getNama()
+        );
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void kendaraanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kendaraanTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) kendaraanTable.getModel();
+        int row = kendaraanTable.getSelectedRow();
+
+        idKendaraanFIeld.setText(model.getValueAt(row, 0).toString());
+        namaKendaraanField.setText(model.getValueAt(row, 1).toString());
+        jenisCombo.setSelectedItem(model.getValueAt(row, 2).toString());
+        merkKendaraanField.setText(model.getValueAt(row, 3).toString());
+        idPemilikField.setText(model.getValueAt(row, 4).toString());
+    }//GEN-LAST:event_kendaraanTableMouseClicked
+
+    private void mekanikTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mekanikTableMouseClicked
+        //Kirim data dari tabel ke form
+        DefaultTableModel model = (DefaultTableModel) mekanikTable.getModel();
+        int row = mekanikTable.getSelectedRow();
+
+        idMekanikField1.setText(model.getValueAt(row, 0).toString());
+        namaMekanikField1.setText(model.getValueAt(row, 1).toString());
+        alamatMekanikField1.setText(model.getValueAt(row, 2).toString());
+        noHPMekanikField1.setText(model.getValueAt(row, 3).toString());
+    }//GEN-LAST:event_mekanikTableMouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        Mekanik mekanik = new Mekanik();
+        mekanik.setId(Integer.valueOf(idMekanikField1.getText()));
+        mekanik.setNama(namaMekanikField1.getText());
+        mekanik.setAlamat(alamatMekanikField1.getText());
+        mekanik.setNoHP(noHPMekanikField1.getText());
+        mekanik.save();
+        tampilkanDataMekanik();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Mekanik mekanik = new Mekanik();
+        mekanik.setId(Integer.valueOf(idMekanikField1.getText()));
+        mekanik.delete();
+        tampilkanDataMekanik();
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        Mekanik mekanik = new Mekanik();
+        mekanik.getById(
+                Integer.valueOf(mekanikField.getText())
+        );
+        namaMekanikLabel.setText(mekanik.getNama());
+
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        Kendaraan kendaraan = new Kendaraan();
+        kendaraan.getById(
+                Integer.valueOf(kendaraanField.getText())
+        );
+        namaKendaraanLabel.setText(kendaraan.getNama());
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        Pelayanan pelayanan = new Pelayanan();
+        pelayanan.setId(
+                Integer.valueOf(idPelayananField.getText())
+        );
+
+        Kendaraan kendaraan = new Kendaraan();
+        kendaraan.getById(
+                Integer.valueOf(kendaraanField.getText())
+        );
+        pelayanan.setKendaraan(kendaraan);
+
+        Mekanik mekanik = new Mekanik();
+        mekanik.getById(
+                Integer.valueOf(mekanikField.getText())
+        );
+        pelayanan.setMekanik(mekanik);
+
+        pelayanan.setBiaya(
+                Integer.valueOf(hargaField.getText())
+        );
+
+        pelayanan.save();
+
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        Pelayanan pelayanan = new Pelayanan();
+        pelayanan.setId(
+                Integer.valueOf(idPelayananField.getText())
+        );
+
+        pelayanan.delete();
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,16 +889,41 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField alamatMekanikField1;
     private javax.swing.JTextField alamatPelangganField;
+    private javax.swing.JTextField hargaField;
+    private javax.swing.JTextField idKendaraanFIeld;
+    private javax.swing.JTextField idMekanikField1;
     private javax.swing.JTextField idPelangganField;
+    private javax.swing.JTextField idPelayananField;
+    private javax.swing.JTextField idPemilikField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -419,13 +936,26 @@ public class GarageProjectGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JComboBox<String> jenisCombo;
+    private javax.swing.JTextField kendaraanField;
+    private javax.swing.JTable kendaraanTable;
+    private javax.swing.JTextField mekanikField;
+    private javax.swing.JTable mekanikTable;
+    private javax.swing.JTextField merkKendaraanField;
+    private javax.swing.JTextField namaKendaraanField;
+    private javax.swing.JLabel namaKendaraanLabel;
+    private javax.swing.JTextField namaMekanikField1;
+    private javax.swing.JLabel namaMekanikLabel;
     private javax.swing.JTextField namaPelangganField;
+    private javax.swing.JLabel namaPemilikText;
+    private javax.swing.JTextField noHPMekanikField1;
     private javax.swing.JTextField noHPPelangganField;
     private javax.swing.JTable pelangganTable;
+    private javax.swing.JTable pelayananTable;
     // End of variables declaration//GEN-END:variables
+
 }
