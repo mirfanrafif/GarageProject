@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Mekanik {
+public class Mekanik implements Transaction{
     private int id;
     private String nama;
     private String alamat;
@@ -79,27 +79,24 @@ public class Mekanik {
         return listMekanik;
     }
     
-    public Mekanik getById(int id){
-        Mekanik mekanik = new Mekanik();
+    public void getById(int id){
         ResultSet rs = DBHelper.selectQuery("SELECT * FROM Mekanik where id_mekanik = " + id);
         
         try {
             while (rs.next()) {
-                mekanik = new Mekanik();
-                mekanik.setId(Integer.valueOf(rs.getString("id_mekanik")));
-                mekanik.setNama(rs.getString("nama_mekanik"));
-                mekanik.setAlamat(rs.getString("alamat"));
-                mekanik.setNoHP(rs.getString("no_hp"));
+                this.setId(Integer.valueOf(rs.getString("id_mekanik")));
+                this.setNama(rs.getString("nama_mekanik"));
+                this.setAlamat(rs.getString("alamat"));
+                this.setNoHP(rs.getString("no_hp"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mekanik;
     }
 
     
     public void save() {
-        if (getById(id).getId() == 0) {
+        if (this.id == 0) {
             String SQL = "INSERT INTO Mekanik(nama_mekanik, alamat, no_hp) VALUES ('" 
                     + this.nama + "', '" 
                     + this.alamat + "', '" 

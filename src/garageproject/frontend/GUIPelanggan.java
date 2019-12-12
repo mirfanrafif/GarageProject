@@ -201,7 +201,10 @@ public class GUIPelanggan extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) pelangganTable.getModel();
         int row = pelangganTable.getSelectedRow();
 
-        Pelanggan pelanggan = new Pelanggan().getById(Integer.valueOf(model.getValueAt(row, 0).toString()));
+        Pelanggan pelanggan = new Pelanggan();
+        pelanggan.getById(
+                Integer.valueOf(idField.getText())
+        );
         pelanggan.delete();
         kosongkanForm();
         ambilData();

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Pelayanan {
+public class Pelayanan implements Transaction{
     private int id;
     private String tanggal;
     private int biaya;
@@ -69,6 +69,7 @@ public class Pelayanan {
         this.mekanik = mekanik;
     }
     
+    @Override
     public ArrayList<Pelayanan> getAll() {
         ArrayList<Pelayanan> listPelayanan = new ArrayList<>();
         ResultSet rs = DBHelper.selectQuery("SELECT * FROM Pelayanan");
@@ -79,17 +80,14 @@ public class Pelayanan {
                 pelayanan.setId(Integer.valueOf(rs.getString("id_pelayanan")));
                 pelayanan.setTanggal(rs.getString("tanggal"));
                 pelayanan.setBiaya(Integer.valueOf(rs.getString("biaya")));
-                pelayanan.setKendaraan(
-                        new Kendaraan().getById(
-                                Integer.valueOf(rs.getString("id_kendaraan")
-                                )
-                        )
-                );
-                pelayanan.setMekanik(
-                        new Mekanik().getById(
-                                Integer.valueOf(rs.getString("id_mekanik"))
-                        )
-                );
+                Kendaraan kendaraan = new Kendaraan();
+                
+                kendaraan.getById(Integer.valueOf(rs.getString("id_kendaraan")));
+                pelayanan.setKendaraan(kendaraan);
+                
+                Mekanik mekanik = new Mekanik();
+                mekanik.getById(Integer.valueOf(rs.getString("id_mekanik")));
+                pelayanan.setMekanik(mekanik);
                 listPelayanan.add(pelayanan);
                 
             }
@@ -100,35 +98,31 @@ public class Pelayanan {
         return listPelayanan;
     }
     
-    public Pelayanan getById(int id){
+    public void getById(int id){
         Pelayanan pelayanan = new Pelayanan();
         ResultSet rs = DBHelper.selectQuery("SELECT * FROM Pelayanan where id_pelayanan = " + id);
         
         try {
             while (rs.next()) {
-                pelayanan.setId(Integer.valueOf(rs.getString("id_pelayanan")));
-                pelayanan.setTanggal(rs.getString("tanggal"));
-                pelayanan.setBiaya(Integer.valueOf(rs.getString("biaya")));
-                pelayanan.setKendaraan(
-                        new Kendaraan().getById(
-                                Integer.valueOf(rs.getString("id_kendaraan")
-                                )
-                        )
-                );
-                pelayanan.setMekanik(
-                        new Mekanik().getById(
-                                Integer.valueOf(rs.getString("id_mekanik"))
-                        )
-                );
+                this.setId(Integer.valueOf(rs.getString("id_pelayanan")));
+                this.setTanggal(rs.getString("tanggal"));
+                this.setBiaya(Integer.valueOf(rs.getString("biaya")));
+                
+                Kendaraan kendaraan = new Kendaraan();
+                kendaraan.getById(Integer.valueOf(rs.getString("id_kendaraan")));
+                pelayanan.setKendaraan(kendaraan);
+                
+                Mekanik mekanik = new Mekanik();
+                mekanik.getById(Integer.valueOf(rs.getString("id_mekanik")));
+                pelayanan.setMekanik(mekanik);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return pelayanan;
     }
     
     public void save() {
-        if (getById(id).getId() == 0) {
+        if (this.id == 0) {
             String SQL = "INSERT INTO Pelayanan(tanggal, biaya, "
                     + "id_kendaraan, id_mekanik) VALUES ('" 
                     + this.tanggal + "', '" 

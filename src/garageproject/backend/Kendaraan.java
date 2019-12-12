@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Kendaraan {
+public class Kendaraan implements Transaction{
     private int id;
     private String nama;
     private String jenis;
@@ -80,9 +80,11 @@ public class Kendaraan {
                 kendaraan.setNama(rs.getString("nama_kendaraan"));
                 kendaraan.setJenis(rs.getString("jenis_kendaraan"));
                 kendaraan.setMerk(rs.getString("merk_kendaraan"));
-                kendaraan.setPelanggan(
-                        new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")))
-                );
+                
+                Pelanggan pelanggan = new Pelanggan();
+                pelanggan.getById(Integer.valueOf(rs.getString("id_pelanggan")));
+                
+                kendaraan.setPelanggan(pelanggan);
                 listKendaraan.add(kendaraan);
                 
             }
@@ -93,28 +95,8 @@ public class Kendaraan {
         return listKendaraan;
     }
     
-    public Kendaraan getById(int id){
-        Kendaraan kendaraan = new Kendaraan();
-        ResultSet rs = DBHelper.selectQuery("SELECT * FROM Kendaraan where id_kendaraan = " + id);
-        
-        try {
-            while (rs.next()) {
-                kendaraan.setId(Integer.valueOf(rs.getString("id_kendaraan")));
-                kendaraan.setNama(rs.getString("nama_kendaraan"));
-                kendaraan.setJenis(rs.getString("jenis_kendaraan"));
-                kendaraan.setMerk(rs.getString("nama_kendaraan"));
-                kendaraan.setPelanggan(
-                        new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")))
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return kendaraan;
-    }
-    
     public void save() {
-        if (getById(id).getId() == 0) {
+        if (this.id == 0) {
             String SQL = "INSERT INTO Kendaraan(nama_kendaraan, jenis_kendaraan, "
                     + "merk_kendaraan, id_pelanggan) VALUES ('" 
                     + this.nama + "', '" 
@@ -135,5 +117,25 @@ public class Kendaraan {
     public void delete() {
         String SQL = "DELETE FROM Kendaraan WHERE id_kendaraan = " + this.id;
         DBHelper.executeQuery(SQL);
+    }
+
+    @Override
+    public void getById(int id) {
+        Kendaraan kendaraan = new Kendaraan();
+        ResultSet rs = DBHelper.selectQuery("SELECT * FROM Kendaraan where id_kendaraan = " + id);
+        
+        try {
+            while (rs.next()) {
+                this.setId(Integer.valueOf(rs.getString("id_kendaraan")));
+                this.setNama(rs.getString("nama_kendaraan"));
+                this.setJenis(rs.getString("jenis_kendaraan"));
+                this.setMerk(rs.getString("nama_kendaraan"));
+                Pelanggan pelanggan = new Pelanggan();
+                pelanggan.getById(Integer.valueOf(rs.getString("id_pelanggan")));
+                this.setPelanggan(pelanggan);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
