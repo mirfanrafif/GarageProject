@@ -20,7 +20,6 @@ public class Pelanggan implements Transaction{
     private String no_hp;
 
     public Pelanggan(String nama, String alamat, String no_hp) {
-        this.id = id;
         this.nama = nama;
         this.alamat = alamat;
         this.no_hp = no_hp;

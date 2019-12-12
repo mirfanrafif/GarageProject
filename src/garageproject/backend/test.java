@@ -53,5 +53,21 @@ public class test {
         pelayanan2.save();
         pelayanan3.save();  
         
+        pelanggan1.delete();
+        pelanggan2.delete();
+        pelanggan3.delete();
+        
+        mekanik1.delete();
+        mekanik2.delete();
+        mekanik3.delete();
+        
+        k1.delete();
+        k2.delete();
+        k3.delete();
+        
+        pelanggan1.delete();
+        pelanggan2.delete();
+        pelanggan3.delete();
+        
     }
 }
