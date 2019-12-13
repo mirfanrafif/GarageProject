@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Kendaraan implements Transaction{
+public class Kendaraan{
     private int id;
     private String nama;
     private String jenis;
@@ -119,23 +119,22 @@ public class Kendaraan implements Transaction{
         DBHelper.executeQuery(SQL);
     }
 
-    @Override
-    public void getById(int id) {
+    public Kendaraan getById(int id) {
         Kendaraan kendaraan = new Kendaraan();
         ResultSet rs = DBHelper.selectQuery("SELECT * FROM Kendaraan where id_kendaraan = " + id);
         
         try {
             while (rs.next()) {
-                this.setId(Integer.valueOf(rs.getString("id_kendaraan")));
-                this.setNama(rs.getString("nama_kendaraan"));
-                this.setJenis(rs.getString("jenis_kendaraan"));
-                this.setMerk(rs.getString("nama_kendaraan"));
-                Pelanggan pelanggan = new Pelanggan();
-                pelanggan.getById(Integer.valueOf(rs.getString("id_pelanggan")));
-                this.setPelanggan(pelanggan);
+                kendaraan.setId(Integer.valueOf(rs.getString("id_kendaraan")));
+                kendaraan.setNama(rs.getString("nama_kendaraan"));
+                kendaraan.setJenis(rs.getString("jenis_kendaraan"));
+                kendaraan.setMerk(rs.getString("nama_kendaraan"));
+                Pelanggan pelanggan = new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")));
+                kendaraan.setPelanggan(pelanggan);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return kendaraan;
     }
 }
