@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Kendaraan{
+public abstract class Kendaraan implements GetResult{
     private int id;
     private String nama;
     private String jenis;
@@ -75,15 +75,23 @@ public class Kendaraan{
         
         try {
             while (rs.next()) {
-                Kendaraan kendaraan = new Kendaraan();
+                Kendaraan kendaraan = new Kendaraan() {
+                    @Override
+                    public String[] getServis() {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void setServis(String[] servis) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                };
                 kendaraan.setId(Integer.valueOf(rs.getString("id_kendaraan")));
                 kendaraan.setNama(rs.getString("nama_kendaraan"));
                 kendaraan.setJenis(rs.getString("jenis_kendaraan"));
                 kendaraan.setMerk(rs.getString("merk_kendaraan"));
                 
-                Pelanggan pelanggan = new Pelanggan();
-                pelanggan.getById(Integer.valueOf(rs.getString("id_pelanggan")));
-                
+                Pelanggan pelanggan = (Pelanggan) new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")));
                 kendaraan.setPelanggan(pelanggan);
                 listKendaraan.add(kendaraan);
                 
@@ -119,8 +127,18 @@ public class Kendaraan{
         DBHelper.executeQuery(SQL);
     }
 
-    public Kendaraan getById(int id) {
-        Kendaraan kendaraan = new Kendaraan();
+    public Object getById(int id) {
+        Kendaraan kendaraan = new Kendaraan() {
+            @Override
+            public String[] getServis() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void setServis(String[] servis) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
         ResultSet rs = DBHelper.selectQuery("SELECT * FROM Kendaraan where id_kendaraan = " + id);
         
         try {
@@ -129,7 +147,7 @@ public class Kendaraan{
                 kendaraan.setNama(rs.getString("nama_kendaraan"));
                 kendaraan.setJenis(rs.getString("jenis_kendaraan"));
                 kendaraan.setMerk(rs.getString("nama_kendaraan"));
-                Pelanggan pelanggan = new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")));
+                Pelanggan pelanggan = (Pelanggan) new Pelanggan().getById(Integer.valueOf(rs.getString("id_pelanggan")));
                 kendaraan.setPelanggan(pelanggan);
             }
         } catch (Exception e) {
@@ -137,4 +155,7 @@ public class Kendaraan{
         }
         return kendaraan;
     }
+    
+    public abstract String [] getServis();
+    public abstract void setServis(String [] servis);
 }

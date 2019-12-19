@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Pelanggan{
+public class Pelanggan implements GetResult{
 
     private int id;
     private String nama;
@@ -85,7 +85,7 @@ public class Pelanggan{
         return listPelanggan;
     }
     
-    public Pelanggan getById(int id){
+    public Object getById(int id){
         ResultSet rs = DBHelper.selectQuery("SELECT * FROM Pelanggan where id_pelanggan = " + id);
         Pelanggan pelanggan = new Pelanggan();
         try {

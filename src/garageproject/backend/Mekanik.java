@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author irfan
  */
-public class Mekanik{
+public class Mekanik implements GetResult{
     private int id;
     private String nama;
     private String alamat;

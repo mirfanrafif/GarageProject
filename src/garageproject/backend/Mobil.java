@@ -33,4 +33,14 @@ public class Mobil extends Kendaraan {
         super.setJenis("Mobil");
     }
 
+    public String[] getServis() {
+        return servis;
+    }
+
+    public void setServis(String[] servis) {
+        this.servis = servis;
+    }
+    
+    
+
 }

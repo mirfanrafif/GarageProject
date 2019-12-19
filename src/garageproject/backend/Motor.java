@@ -26,4 +26,14 @@ public class Motor extends Kendaraan {
     public Motor() {
         super.setJenis("Motor");
     }
+
+    public String[] getServis() {
+        return servis;
+    }
+
+    public void setServis(String[] servis) {
+        this.servis = servis;
+    }
+    
+    
 }
