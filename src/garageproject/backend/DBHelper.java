@@ -20,10 +20,10 @@ public class DBHelper {
     public static void bukaKoneksi(){
         if (connection == null) {
             try {
-                String url = "jdbc:mysql://localhost:3306/bengkeldb?serverTimezone=UTC&autoReconnect=true&useSSL=false";
-                String user = "admin";
-                String password = "irfanRAFI";
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                String url = "jdbc:mysql://localhost:3306/db_bengkel";
+                String user = "root";
+                String password = "";
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                 connection = DriverManager.getConnection(url, user, password);
             } catch (Exception e) {
                 System.out.println("Error Koneksi : " + e);

@@ -193,6 +193,7 @@ public class FormPelayanan extends javax.swing.JFrame {
     }//GEN-LAST:event_keteranganComboActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
         Pelayanan pelayanan = new Pelayanan();
         pelayanan.setBiaya(Integer.parseInt(fieldHarga.getText()));
         pelayanan.setKeterangan(keteranganCombo.getSelectedItem().toString());
@@ -206,6 +207,8 @@ public class FormPelayanan extends javax.swing.JFrame {
         pelayanan.setKendaraan(kendaraan);
         
         pelayanan.save();
+        new FormPelayanan(kendaraan).setVisible(true);
+        this.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

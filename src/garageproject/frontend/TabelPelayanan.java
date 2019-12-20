@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Irfan Rafif
- */
+
 public class TabelPelayanan extends javax.swing.JFrame {
 
     /**
@@ -26,6 +23,10 @@ public class TabelPelayanan extends javax.swing.JFrame {
         tampilkanDataPelayanan();
         tampilkanDataPelanggan();
         tampilkanDataMekanik();
+    }
+
+    TabelPelayanan(Kendaraan kendaraan) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void tampilkanDataPelayanan(){
